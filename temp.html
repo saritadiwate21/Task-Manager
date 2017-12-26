@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Application</title>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <script src="libs/jquery-3.2.1.slim.min.js"></script>
+    <style type="text/css">
+        .show{
+            display: inline-block;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+   </head>
+<body>
+    <button id="add">Add Items</button>
+    <button id="showlist">Show List item</button>
+
+ <input type="checkbox" id="two" value="2"> 2
+  <input type="checkbox" id="five" value="5"> 5
+
+<ul id="list">
+    
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        let arr = [1,2,4,5];
+        let numberTobedelete = 5;
+
+        $("button#add").click(()=>{
+            $.each(arr,(index,item)=>{
+                //console.log(item);
+                $("ul#list").append("<li>"+item+"</li>");
+            })
+        });
+
+//          $("button#showlist").click(()=>{
+//             var listItems = $("#list li");
+//             listItems.each(function(idx, li) {
+//             var product = $(li);
+//             console.log(product);
+//             //console.log(product['0'].innerText);
+
+//             if(numberTobedelete==product['0'].innerText){
+//                 product['0'].className="myclass";
+//                 console.log();
+//             }
+// });
+            
+//         });
+
+         $("input[type='checkbox']").change(function()
+         {
+            var checkbox = $(this);
+            var listItems = $("#list li");
+            var product;
+            var val;
+            listItems.each(function(idx, li) {
+            product = $(li);
+            
+            //console.log(product['0'].innerText);
+            if(checkbox.is(":checked")){
+                console.log("checked");
+                 val = checkbox.val();
+                //console.log(val);
+                if(val==product['0'].innerText){
+                    product['0'].className="show";
+                }
+            } else{
+                console.log("unchekd" +checkbox.val());
+                 if(checkbox.val()==product['0'].innerText){
+                    product['0'].className="hide";
+                }
+                // if(val==product['0'].innerText){
+                // console.log("ok");
+                // product['0'].className="hide";
+             }
+        }
+          
+          
+});
+   
+
+         })
+    });
+</script>
+</body>
+</html>
+
+
+
+
+
+ <div class="container">
+    <div class=" border w-50 bg-dark float-md-left" >
+        <div id="divh2">
+            <h2 class="text-light">The List Of Tasks:</h2>
+        </div>        
+        <div id="div2">
+            <ul class="list-unstyled"></ul>
+        </div>
+    </div>
+      <div class=" border w-50 bg-dark float-md-right" id="divm3">
+        <div id="divh3">
+            <h2 class="text-light">The List Of checked Tasks:</h2>
+        </div>        
+        <div id="div3">
+            <ul class="list-unstyled">
+                
+            </ul>
+        </div>
+        <div id="divb3" class="text-center">
+
+        </div>
+    </div>
+ </div>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Application</title>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+   
+    <link rel="stylesheet"  href="css/style.css">
+   
+</head>
+<body>
+
+
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h6 class="modal-title text-danger">You are logged in.Please login first</h6>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form class="text-dark" id="login-form">
+            <div class="form-group">
+                <label for="uname">Enter your name:</label>
+                <input type="text" class="form-control" id="uname">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd">
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" id="remembermechk"> Remember me
+                </label>
+            </div>
+            <button type="submit"  class="btn btn-primary">Submit</button>
+    </form>
+      </div>
+
+     </div>
+  </div>
+</div>
+
+<div id="h11" class="container">
+
+<div class="d-flex justify-content-between align-items-center">
+  <div class="p-2">
+      <img src="imges/avtar.png" class="rounded-circle" alt="user" width="50" height="50">
+      <span class="welcome-user"></span>
+  </div>
+  <div class="p-2 d-none d-md-block">
+      <h1 class="">Task Manager</h1>
+  </div>
+  <div class="p-2">
+      <button class="btn  btn-sm d-sm-inline" id="login-btn"
+      data-toggle="modal" data-target="#myModal">Login</button>
+       <button class="btn  btn-sm d-sm-inline" id="logout-btn">Logout</button>
+  </div>
+
+</div>
+
+
+
+  <!--  <div class="row">
+        <div class="col-md-12 pl-0 pr-0">
+            <div class="text-center"><h1 class="p-3">Task Manager</h1></div>   
+        </div>
+   </div>  -->  
+ </div>
+
+ <div class="container">   
+    <div id="div-main">
+        <div class="row">
+            <div class="col-md-6" id="div-main1">
+                <div id="div-form ">
+                    <form class="form justify-content-center" action="#" id="form1">
+                        <div class=" p-3">
+                            <div id="l1" class="hide1">Add new task & press enter</div>
+
+                                <div class="input-group">
+                                 
+                                  <input type="text" class="form-control" placeholder="Add new task & press enter" aria-describedby="basic-addon1" id="task">
+
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-danger" id="btn-close" type="reset">X</button>
+                                  </span>
+                                </div>
+
+                        </div>
+                            <!-- <button type="submit" id="btn1" class="btn btn-default mt-4 d-none d-md-block">+</button> -->
+                    </form>
+                </div> 
+                  <div id="div2" class="h=100">
+                     <ul class="list-unstyled"></ul>
+                </div>  
+            </div>
+            <div class="col-md-6" id="div-main2">
+                <div id="divh3" class="mb-3 mt-2 pt-4">
+                    <h2>The List Of completed Tasks:</h2>
+                </div>        
+                <div id="div3" class="mt-4 mb-2">
+                    <ul class="list-unstyled"></ul>
+                </div>
+                <div id="divb3" class="text-center">
+                </div>   
+            </div>
+        </div>
+    </div>
+</div>
+
+   
+
+
+
+
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="libs/jquery-3.2.1.slim.min.js"></script>
+    <script src="libs/popper.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
+    <script src="js/style.js"></script>
+   
+   
+</body>
+</html>
