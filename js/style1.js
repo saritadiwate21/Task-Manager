@@ -1,44 +1,129 @@
-
-$(document).ready(()=>{
+$(document).ready(function(){
 	var arr=[];
-	var res=[];
+    var res = [];
+     let loggedinsessionUser;
+     let loggedinUserTask =[];
+ // Check user is existe in web storage
+ let usernameSession = sessionStorage.getItem("info");
+ let usernameLocal = localStorage.getItem("info");
+//  console.log(usernameSession);
+// console.log(usernameLocal);
 
-	var uname,password;
-	var session,sessionp,local,localp;
+// check if no user session in  past
+if(usernameLocal == null && usernameSession ==null){
+  console.log("both are null.Login modal");
+   $('#myModal').modal('toggle');
+
+}else{
+    console.log(usernameSession);
+    if(usernameSession){
+    	console.log("not null");
+    	   loggedinsessionUser = JSON.parse(usernameSession).uname;
     
+	console.log("get data");
+    $(".welcome-user").text("Welcome "+loggedinsessionUser);
+     $("#login-btn").addClass('hide1');
 
-// input placeholder moves as a label
-
-$('#task').focusin(function(e){
-    $('#l1').addClass('show1');
-    $(this).attr('placeholder','');
-}).focusout(function(e){
-    $('#l1').removeClass('show1');
-    $(this).attr('placeholder','Add new task & press enter');
-});
-
-
-   // hide close button in input
-   $('#btn-close').addClass('hide1');
-
-// close button shows as key up in input
-
-$('#task').keyup(function(e){
-	console.log(e);
-	if($(this)!=''){
-		$('#btn-close').addClass('show1');	
-	}
-	if($(this).val()===''){
-	$('#btn-close').removeClass('show1');		
-	}
+     loggedinsessionArray = JSON.parse(usernameSession).tasks;
+	let output1 ='';
+    $.each(loggedinsessionArray,function(index,item){
+    		output1 +=`
+			<li class="border pl-5 p-1 list-unstyled-item" id="${item}">
+  			${item}
+			</li>
+			`;
 		 
+    });
+    $('#div3 ul').append(output1); 
+    }
+    else{
+    	console.log("localo");
+    	console.log("not null");
+    	   loggedinsessionUser = JSON.parse(usernameLocal).uname;
+    
+	console.log("get data");
+    $(".welcome-user").text("Welcome "+loggedinsessionUser);
+     $("#login-btn").addClass('hide1');
+
+     loggedinsessionArray = JSON.parse(usernameLocal).tasks;
+	let output1 ='';
+    $.each(loggedinsessionArray,function(index,item){
+    		output1 +=`
+			<li class="border pl-5 p-1 list-unstyled-item" id="${item}">
+  			${item}
+			</li>
+			`;
+		 
+    });
+    $('#div3 ul').append(output1); 
+    }
+
+}
+
+
+// Login Form Validate rule.
+$('#login-form').validate({ // initialize the plugin
+        rules: {
+            uname: {
+                required: true
+               
+            },
+            pwd: {
+                required: true
+               
+            }
+        },
+         messages: {
+            uname: "Required User name Field",
+            pwd:"Required Password"
+         }
+    });
+
+// Login Submit handler
+$("#login-form").submit((e)=>{
+  let uname = $("#uname").val();
+ let password = $("#pwd").val();
+  obj ={
+		uname:uname,
+		pwd:password,
+		tasks:[]
+
+	};
+ $(".welcome-user").text("Welcome "+uname);
+ $('#myModal').modal('toggle');
+ 
+ console.log($("#remembermechk").is(':checked'));
+ 
+ if($("#remembermechk").is(':checked')){
+   
+  localStorage.setItem("info",JSON.stringify(obj));
+ }
+ else{
+ 	   sessionStorage.setItem("info",JSON.stringify(obj));
+ }
+
+// Hide login button
+ $("#login-btn").addClass('hide1');
+ 
+  e.preventDefault();
 });
 
-// close button hides as in input is blank
-$('#btn-close').click(function(){
-	$(this).removeClass('show1');
-});
+// Logout Button
+$("#logout-btn").click(()=>{
+	let session = sessionStorage.getItem("info");
+	let local=localStorage.getItem("info"); 
+  	if(session){
+  sessionStorage.removeItem("info");
+}
+else{
+	localStorage.removeItem("info");	
+}
 
+   location.reload();
+
+
+});
+   
 
 
 // Add tak in form and show it into list
@@ -85,7 +170,6 @@ else{
 });
 
 
-
 // show close button to list
 $(document).on({
     mouseenter: function(){
@@ -101,21 +185,22 @@ $(document).on({
     }
 },"#div2 ul li");
 
-
 // remove task after clicking on close button
 $(document).on({
     click: function(){
-    	let val = $("input[type=checkbox]").val();
+    	let val = $(this).parent().closest('li').attr('id');
+    	 console.log(val);
     	for(let i=0;i<arr.length;i++){
-    		if(arr[i]==val)
+    		if(arr[i]==val){
+             
     			arr.splice(i,1);
+
+    		}
     	}
     	console.log("deleted array"+arr);
         $(this).parent().remove();
  
 }},"#div2 ul li span");
-
-
 
 // deleting item of completed task list after unchecked task
 $(document).on({
@@ -161,65 +246,6 @@ $(document).on({
     }
 }},"#div2 ul li input:checkbox");
 
-// //remove from arr when clicking on li remove icon
-// $('#div2 ul li span #li-close').click(function(){
-// 	for(let i=0;i<arr;i++){
-// 		if(arr[i]==){}
-// 	}
-// }) ;   
-
-
-  checkLoginStatus();
-	
-
-
-
-$("#login-form").submit((e)=>{
-  uname = $("#uname").val();
- password = $("#pwd").val();
-  obj ={
-		uname:uname,
-		pwd:password,
-		tasks:[]
-
-	};
- $(".welcome-user").text("Welcome "+uname);
- $('#myModal').modal('toggle');
- 
- console.log($("#remembermechk").is(':checked'));
- 
- if($("#remembermechk").is(':checked')){
-   
-  localStorage.setItem("info",JSON.stringify(obj));
- }
- else{
- 	   sessionStorage.setItem("info",JSON.stringify(obj));
- }
-
- $("#login-btn").addClass('hide1');
- 
-  e.preventDefault();
-});
-
-
-// Logout Button
-$("#logout-btn").click(()=>{
-	session = sessionStorage.getItem("info");
-	local=localStorage.getItem("info"); 
-  	if(session){
-  sessionStorage.removeItem("info");
-}
-else{
-	localStorage.removeItem("info");	
-}
-
-   location.reload();
-
-
-});
-
-
-
 
 // Save button
 $(document).on("click","#save-btn",function(){
@@ -227,7 +253,6 @@ $(document).on("click","#save-btn",function(){
 	local=localStorage.getItem("info");
 	var listItems1 = $("#div2 ul li");
 	let out2='';
-
 				out2+=`
 					<div class="alert alert-danger alert-dismissable fade show fixed-bottom w-50">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -237,8 +262,7 @@ $(document).on("click","#save-btn",function(){
   				
 				$('#div-main1').append(out2);
 			}
-
-  else{
+ else{
   		if(session){
 	sessionp = JSON.parse(session);
   	alert("Hello "+sessionp.uname);
@@ -255,8 +279,7 @@ $(document).on("click","#save-btn",function(){
     			
 	 		});  
   		 }
-
-  console.log("Arr "+sessionp.tasks);
+ console.log("Arr "+sessionp.tasks);
     var updatedSessionObj = {
     	uname:sessionp.uname,
 		pwd:sessionp.pwd,
@@ -264,62 +287,43 @@ $(document).on("click","#save-btn",function(){
     };
     console.log(updatedSessionObj);
     sessionStorage.setItem("info",JSON.stringify(updatedSessionObj));
-
-
-var session1 = sessionStorage.getItem("info");
-var sessionp1=JSON.parse(session1);
-    for(let i=0;i<sessionp1.tasks.length;i++){
-		listItems1.each(function(idx, li) {
-        		product = $(li);
-				 if(sessionp1.tasks[i]==product['0'].id){
-				 	for(let j=0;j<arr.length;j++){
-				 		if(arr[j]==product['0'].id)
-				 			arr.splice(j,1);
-				 	}
-                    product['0'].remove();
-                }
-				});
-		console.log(sessionp1.tasks[i]);
-		}
-
-  }
+    }
   else{
-  	localp = JSON.parse(local);
-  	// obj.tasks=res;
-  	// localStorage.setItem("info.tasks",obj.tasks);
-  	alert("Hello "+localp.uname);
-
- var updatedLocalObj = {
-    	uname:localp.uname,
-		pwd:localp.pwd,
-		tasks:localp.tasks
+  	sessionp = JSON.parse(local);
+  	alert("Hello "+sessionp.uname);
+  	console.log("unae "+sessionp.uname+" pwd "+sessionp.pwd);
+  	
+ 	console.log(res.length);
+  		
+  		if(sessionp.tasks=='' && res!=''){
+  			sessionp.tasks = res;
+  		}
+  		 else{
+  		 	 $.each(res,function(index,item){
+  		 	 		sessionp.tasks.push(item);
+    			
+	 		});  
+  		 }
+ console.log("Arr "+sessionp.tasks);
+    var updatedSessionObj = {
+    	uname:sessionp.uname,
+		pwd:sessionp.pwd,
+		tasks:sessionp.tasks
     };
-    console.log(updatedLocalObj);
-    localStorage.setItem("info",JSON.stringify(updatedLocalObj));
-
-  	for(let i=0;i<localp.tasks.length;i++){
-		listItems1.each(function(idx, li) {
-        		product = $(li);
-				 if(localp.tasks[i]==product['0'].id){
-				 	for(let j=0;j<arr.length;j++){
-				 		if(arr[j]==product['0'].id)
-				 			arr.splice(j,1);
-				 	}
-                    product['0'].remove();
-                }
-				});
-
-	}
-  }
-}
+    console.log(updatedSessionObj);
+    localStorage.setItem("info",JSON.stringify(updatedSessionObj));
+ }
 	res=[];
 	console.log(res);
+}
 
 });
 
 
-// end of document.ready
+
 });
+
+
 
 
 // Adding to list -display in list
@@ -336,30 +340,3 @@ function addList(t){
 			`;
 		$('#div2 ul').append(output);
 };
-
-function checkLoginStatus(){
-	// console.log("res "+res);
-	session = sessionStorage.getItem("info");
-	local = localStorage.getItem("info");
-	console.log(session);
-	console.log(local);
-	if(session==null && local==null) {
-		$("#myModal").modal();
-			
-			}
-
-			else{
-				if(session){	  
-				sessionp = JSON.parse(session);
-	 		 $(".welcome-user").text("Welcome "+sessionp.uname);
-	 		 $("#login-btn").addClass('hide1');
-	 			}
-	 		else{
-	 			localp = JSON.parse(local);
-	 		 $(".welcome-user").text("Welcome "+localp.uname);
-	 			$("#login-btn").addClass('hide1');
-	 			}
-	 	}
- 
-	 	
-}

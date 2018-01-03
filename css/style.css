@@ -3,6 +3,7 @@ body {
 	font-weight: bold;
 }
 
+/*header id*/
 #h11 {
 	background: linear-gradient(#003399, #006699);
 	border-bottom: 2px solid white;
@@ -26,6 +27,7 @@ li {
 	border-right: 2px solid white;
 }
 
+/*add task list div*/
 #div2 {
 	height: 400px;
 	overflow-y:auto;
@@ -35,10 +37,13 @@ li {
 	background-color: #006699;
 }
 
+/*completed task list div*/
 #div3 {
 	height: 350px;
 	overflow-y:auto;
 }
+
+/*show hide classes*/
 
 .hide{
 	display: none;
@@ -50,9 +55,13 @@ li {
 .hide1 {
 	visibility: hidden;
 }
+
 .show1 {
 	visibility: visible;
 }
+
+/*close button of li*/
+
 #div2 li span{
 	cursor: pointer;
 	font-size: 25px;
@@ -60,53 +69,10 @@ li {
 	float: right;
 }
 
+
+/*label of textbox*/
 #l1 {
     transition-property: all;
     transition-duration: 0.1s;
 }
 
-/*.close-icon {
-	cursor: pointer;
-	font-size: 15px;
-	color: red;
-	float: right;
-	background-color: white;
-	outline: 0;
-	border: 0;
-	z-index: 1;
-	border:1px solid transparent;
-	background-color: transparent;
-	display: inline-block;
-	vertical-align: middle;
-}*/
-
-/*.search-box {
-	position: relative;
-}*/
-
-
-/*.close-icon:after {
-	content: "X";
-	display: block;
-	width: 15px;
-	height: 15px;
-	position: absolute;
-	background-color: #FA9595;
-	z-index:1;
-	right: 105px;
-	top: -365px;
-	bottom: 0;
-	margin: auto;
-	padding: 2px;
-	border-radius: 50%;
-	text-align: center;
-	color: white;
-	font-weight: normal;
-	font-size: 12px;
-	box-shadow: 0 0 2px #E50F0F;
-	cursor: pointer;
-}*/
-/*input.search-box:not(:valid) ~ button.close-icon {
-	display: none;
-	
-}*/
